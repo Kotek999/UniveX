@@ -1,12 +1,13 @@
-import React from "react";
+import React, { Fragment } from "react";
 import { SafeAreaView, Text, View } from "react-native";
+import FooterMenu from "./src/components/FooterMenu";
 
 // https://flexbox.buildwithreact.com
 
 export default function App() {
   return (
-    <View>
-      <SafeAreaView style={{ backgroundColor: "red" }}></SafeAreaView>
+    <Fragment>
+      <SafeAreaView style={{ backgroundColor: "red" }} />
       <View
         style={{
           flexDirection: "row",
@@ -15,8 +16,9 @@ export default function App() {
           alignContent: "center",
         }}
       >
-        <Text>siema</Text>
+        <Text>Footer Menu</Text>
       </View>
-    </View>
+      <FooterMenu />
+    </Fragment>
   );
 }
