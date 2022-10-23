@@ -6,46 +6,52 @@ import { BottomNavigation, Text } from "react-native-paper";
 const backgroundImage = require("../../images/backgroundTheme.jpg");
 const moon = require("../../images/planets/moon.gif");
 
-const MusicRoute = () => (
-  <View>
-    <Test />
-  </View>
-);
+const MusicRoute = () => <Text>Content 1</Text>;
 // const MusicRoute = () => <ImageBackground source={backgroundImage} resizeMode="cover" style={{flex: 1, justifyContent: "center"}}><Text>Content 1</Text></ImageBackground>;
 
-const RecentsRoute = () => <Text>Content 2</Text>;
+const RecentsRoute = () => <Text>Planeta</Text>;
 // const RecentsRoute = () => <ImageBackground source={backgroundImage} resizeMode="cover" style={{flex: 1, justifyContent: "center"}}><Text>Content 2</Text></ImageBackground>;
 
 const NotificationsRoute = () => <Text>Content 3</Text>;
 // const NotificationsRoute = () => <ImageBackground source={backgroundImage} resizeMode="cover" style={{flex: 1, justifyContent: "center"}}><Text>Content 3</Text></ImageBackground>;
 
-export const Test = () => (
+export const DefaultPlanet = () => (
   <View
     style={{
+      width: "30%",
+      height: "40%",
       flexDirection: "row",
+      alignSelf: "center",
       justifyContent: "center",
       alignItems: "center",
       alignContent: "center",
-      backgroundColor: "gray",
     }}
   >
-    <ImageBackground
-      resizeMode="cover"
-      source={moon}
+    <View
       style={{
-        width: 90,
-        height: 90,
-        backgroundColor: "white",
-        borderRadius: 50,
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+        alignContent: "center",
       }}
-    ></ImageBackground>
+    >
+      <ImageBackground
+        resizeMode="cover"
+        source={moon}
+        style={{
+          width: 60,
+          height: 60,
+          borderRadius: 10,
+        }}
+      ></ImageBackground>
+    </View>
   </View>
 );
 
 interface NavIcons {
   key: string;
   title: string | any;
-  focusedIcon?: string;
+  focusedIcon?: string | any;
   unfocusedIcon?: string;
 }
 
@@ -58,7 +64,7 @@ const NAV_ICONS: NavIcons[] = [
   },
   {
     key: "iconSecond",
-    title: "Icon 2",
+    title: <DefaultPlanet />,
     focusedIcon: "heart",
     unfocusedIcon: "heart-outline",
   },
@@ -89,7 +95,10 @@ const FooterMenu = () => {
       renderScene={renderScene}
       safeAreaInsets={{ bottom: insets.bottom }}
       barStyle={{ backgroundColor: "transparent" }}
+      keyboardHidesNavigationBar
       style={{ flex: 1 }}
+      activeColor="red"
+      sceneAnimationType="shifting"
     />
   );
 };

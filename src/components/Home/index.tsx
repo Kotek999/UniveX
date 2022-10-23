@@ -3,7 +3,6 @@ import { SafeAreaView, Text, View } from "react-native";
 import FooterMenu from "../FooterMenu";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import isIOS from "../../rules/resolutions/isIOS";
-import { Test } from "../FooterMenu";
 // https://flexbox.buildwithreact.com
 
 const Home: FC = () => {
@@ -23,7 +22,7 @@ const Home: FC = () => {
               backgroundColor: "cyan",
             }}
           >
-            <Text>Title</Text>
+            <Text>UniveX</Text>
           </View>
         </View>
         <FooterMenu />
