@@ -2,6 +2,7 @@ import * as React from "react";
 import { ImageBackground, View, Image } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { BottomNavigation, Text } from "react-native-paper";
+import { TouchableRipple } from "react-native-paper";
 
 const backgroundImage = require("../../images/backgroundTheme.jpg");
 const moon = require("../../images/planets/moon.gif");
