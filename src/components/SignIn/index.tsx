@@ -1,14 +1,29 @@
 import React, { FC, useState } from "react";
 import { Text, ImageBackground, View } from "react-native";
-import { Button } from "react-native-paper";
 import SafeArea from "../../common/SafeArea";
-import { Card, Title, Paragraph } from "react-native-paper";
-import { TextInput } from "react-native-paper";
+import {
+  Card,
+  Title,
+  Paragraph,
+  Button,
+  Snackbar,
+  TextInput,
+  Checkbox,
+} from "react-native-paper";
 
 const backgroundImage = require("../../images/backgroundTheme.jpg");
 
 const SingIn: FC = ({ navigation }: any) => {
   const [text, setText] = useState("");
+  const [visible, setVisible] = useState(false);
+
+  const onToggleSnackBar = () => setVisible(!visible);
+ 
+  const isGuest = () => {
+   visible ? navigation.navigate("Home") : alert("Logujesz się jako Gość")
+  }
+
+
   return (
     <SafeArea screenTitle="SignIn">
       <ImageBackground
@@ -44,6 +59,7 @@ const SingIn: FC = ({ navigation }: any) => {
           >
             <Card.Content>
               <Title>Logowanie</Title>
+              <Text>Twój status: {!visible ? "Gość" : "Unknown"}</Text>
               <TextInput
                 mode="outlined"
                 label="Nazwa"
@@ -65,11 +81,16 @@ const SingIn: FC = ({ navigation }: any) => {
             >
               <Button
                 mode="outlined"
-                onPress={() => navigation.navigate("Home")}
+                onPress={() => isGuest()}
                 style={{ width: "90%", backgroundColor: "gray" }}
               >
-                <Text style={{ color: "white" }}>Zaloguj Się</Text>
+                <Text style={{ color: "white" }}>{visible ? "Zaloguj Się" : "Zaloguj się jako Gość"}</Text>
               </Button>
+              <View style={{ padding: 10 }}>
+                <Text>Nie masz konta? Zaloguj się jako gość</Text>
+              </View>
+              {/* <Button onPress={onToggleSnackBar} icon={visible ? "check" : "close"}></Button> */}
+              <Button mode="outlined" onPress={onToggleSnackBar}>Zweryfikuj</Button>
             </View>
           </Card>
         </View>

@@ -5,6 +5,7 @@ import isIOS from "../../rules/resolutions/isIOS";
 
 interface SafeProps {
   screenTitle?: string;
+  guest?: boolean;
   children: ReactElement;
 }
 
@@ -22,6 +23,7 @@ const SafeArea = (props: SafeProps) => {
         <View style={styles.topContainer}>
           <Text>{props.screenTitle}</Text>
         </View>
+        {props.guest && <Text>siema</Text>}
       </View>
       {props.children}
     </View>

@@ -4,7 +4,7 @@ import SafeArea from "../../common/SafeArea";
 
 const Home: FC = () => {
   return (
-    <SafeArea screenTitle="UniveX">
+    <SafeArea screenTitle="UniveX" guest={true}>
       <FooterMenu />
     </SafeArea>
   );
