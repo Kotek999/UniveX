@@ -2,6 +2,9 @@ import React, { FC } from "react";
 import FooterMenu from "../FooterMenu";
 import SafeArea from "../../common/SafeArea";
 import { Text } from "react-native-paper";
+import "react-native-get-random-values";
+// @ts-ignore
+import { v4 as uuidv4 } from "uuid";
 
 interface GuestProps {
   guest?: boolean;
@@ -9,9 +12,7 @@ interface GuestProps {
 
 const Home: FC = (props: GuestProps) => {
   return (
-    <SafeArea
-      screenTitle={props.guest ? <Text>GUEST</Text> : <Text>USER</Text>}
-    >
+    <SafeArea screenTitle={props.guest && <Text>USER</Text>}>
       <FooterMenu />
     </SafeArea>
   );
@@ -20,7 +21,9 @@ const Home: FC = (props: GuestProps) => {
 export const HomeGuest: FC = (props: GuestProps) => {
   return (
     <SafeArea
-      screenTitle={props.guest ? <Text>USER</Text> : <Text>GUEST</Text>}
+      screenTitle={
+        props.guest ? <Text>USER</Text> : <Text>GUEST {uuidv4()}</Text>
+      }
     >
       <FooterMenu />
     </SafeArea>
