@@ -7,7 +7,11 @@ import { TouchableRipple } from "react-native-paper";
 const backgroundImage = require("../../images/backgroundTheme.jpg");
 const moon = require("../../images/planets/moon.gif");
 
-const MusicRoute = () => <Text>Content 1</Text>;
+const HomeRoute = () => (
+  <View>
+    <Text>Content 1</Text>
+  </View>
+);
 // const MusicRoute = () => <ImageBackground source={backgroundImage} resizeMode="cover" style={{flex: 1, justifyContent: "center"}}><Text>Content 1</Text></ImageBackground>;
 
 const RecentsRoute = () => <Text>Planeta</Text>;
@@ -82,7 +86,7 @@ const FooterMenu = () => {
   const [routes] = React.useState(NAV_ICONS);
 
   const renderScene = BottomNavigation.SceneMap({
-    iconFirst: MusicRoute,
+    iconFirst: () => <HomeRoute />,
     iconSecond: RecentsRoute,
     iconThird: NotificationsRoute,
   });

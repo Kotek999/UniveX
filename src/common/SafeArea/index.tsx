@@ -3,10 +3,10 @@ import { SafeAreaView, Text, View, StyleSheet } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import isIOS from "../../rules/resolutions/isIOS";
 
-interface SafeProps {
-  screenTitle?: string;
-  guest?: boolean;
+export interface SafeProps {
+  screenTitle?: any;
   children: ReactElement;
+  guest?: boolean;
 }
 
 const SafeArea = (props: SafeProps) => {
@@ -21,9 +21,13 @@ const SafeArea = (props: SafeProps) => {
       <View style={topArea}>
         {isIOS() && <SafeAreaView style={{ backgroundColor: "red" }} />}
         <View style={styles.topContainer}>
-          <Text>{props.screenTitle}</Text>
+          {/* <Text>{props.screenTitle}</Text> */}
+          {props.screenTitle ? (
+            <Text>{props.screenTitle}</Text>
+          ) : (
+          <Text>{props.guest ? <Text>GUEST</Text> : <Text>USER</Text>}</Text>
+          )}
         </View>
-        {props.guest && <Text>siema</Text>}
       </View>
       {props.children}
     </View>

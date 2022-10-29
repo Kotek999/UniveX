@@ -18,11 +18,12 @@ const SingIn: FC = ({ navigation }: any) => {
   const [visible, setVisible] = useState(false);
 
   const onToggleSnackBar = () => setVisible(!visible);
- 
-  const isGuest = () => {
-   visible ? navigation.navigate("Home") : alert("Logujesz się jako Gość")
-  }
 
+  const isGuest = () => {
+    visible
+      ? navigation.navigate("Home")
+      : alert("Logujesz się jako Gość") + navigation.navigate("HomeGuest");
+  };
 
   return (
     <SafeArea screenTitle="SignIn">
@@ -84,13 +85,17 @@ const SingIn: FC = ({ navigation }: any) => {
                 onPress={() => isGuest()}
                 style={{ width: "90%", backgroundColor: "gray" }}
               >
-                <Text style={{ color: "white" }}>{visible ? "Zaloguj Się" : "Zaloguj się jako Gość"}</Text>
+                <Text style={{ color: "white" }}>
+                  {visible ? "Zaloguj Się" : "Zaloguj się jako Gość"}
+                </Text>
               </Button>
               <View style={{ padding: 10 }}>
                 <Text>Nie masz konta? Zaloguj się jako gość</Text>
               </View>
               {/* <Button onPress={onToggleSnackBar} icon={visible ? "check" : "close"}></Button> */}
-              <Button mode="outlined" onPress={onToggleSnackBar}>Zweryfikuj</Button>
+              <Button mode="outlined" onPress={onToggleSnackBar}>
+                Zweryfikuj
+              </Button>
             </View>
           </Card>
         </View>
