@@ -56,7 +56,7 @@ const SignIn: FC = () => {
           >
             <Card.Content>
               <Title>Logowanie</Title>
-              <Text>Twój status: {!visible ? "Offline" : "Gość"}</Text>
+              <Text style={{fontFamily: "Roboto"}}>Twój status: {!visible ? "Offline" : "Gość"}</Text>
               <TextInput
                 mode="outlined"
                 label="Nazwa"

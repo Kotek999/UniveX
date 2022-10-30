@@ -1,20 +1,35 @@
 import * as React from "react";
 import { ImageBackground, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { BottomNavigation, Text } from "react-native-paper";
-import { useFonts } from "expo-font";
-
-
+import { BottomNavigation, Text, Card } from "react-native-paper";
+// @ts-ignore
+import { v4 as uuidv4 } from "uuid";
 const backgroundImage = require("../../images/backgroundTheme.jpg");
 const moon = require("../../images/planets/moon.gif");
 
-const HomeRoute = () => (
-  
-  <View>
-    {/* <Text style={{ fontFamily: 'Inter-SemiBoldItalic', fontSize: 30 }}>Content 1</Text> */}
-    <Text>Content 1</Text>
-  </View>
-);
+const HomeRouteGuest = (props: any) => {
+  const screenTitle = !props.guest && <Text>Witaj! GOŚĆ{uuidv4()}</Text>;
+
+  return (
+    <Card.Title
+      title={screenTitle}
+      subtitle="Content 1"
+      titleStyle={{ color: "red" }}
+    />
+  );
+};
+
+const HomeRouteUser = (props: any) => {
+  const screenTitle = !props.guest && <Text>Witaj! USER</Text>;
+
+  return (
+    <Card.Title
+      title={screenTitle}
+      subtitle="Content 1"
+      titleStyle={{ color: "red" }}
+    />
+  );
+};
 // const MusicRoute = () => <ImageBackground source={backgroundImage} resizeMode="cover" style={{flex: 1, justifyContent: "center"}}><Text>Content 1</Text></ImageBackground>;
 
 const RecentsRoute = () => <Text>Planeta</Text>;
@@ -78,44 +93,62 @@ const NAV_ICONS: NavIcons[] = [
   },
   {
     key: "iconThird",
-    title: "Profile",
+    title: "Profil",
     focusedIcon: "bell",
     unfocusedIcon: "bell-outline",
   },
 ];
 
-const FooterMenu = () => {
+interface FooterProps {
+  isUser: boolean;
+}
+
+const FooterMenu = (props: FooterProps) => {
   const [index, setIndex] = React.useState(0);
   const [routes] = React.useState(NAV_ICONS);
 
-  const renderScene = BottomNavigation.SceneMap({
-    iconFirst: () => <HomeRoute />,
+  const renderSceneUser = BottomNavigation.SceneMap({
+    iconFirst: () => <HomeRouteUser />,
     iconSecond: RecentsRoute,
     iconThird: NotificationsRoute,
   });
 
-  const insets = useSafeAreaInsets()
-  
-  // const [fontsLoaded] = useFonts({
-  //   'Inter-SemiBoldItalic': 'https://rsms.me/inter/font-files/Inter-SemiBoldItalic.otf?v=3.12',
-  // });
+  const renderSceneGuest = BottomNavigation.SceneMap({
+    iconFirst: () => <HomeRouteGuest />,
+    iconSecond: RecentsRoute,
+    iconThird: NotificationsRoute,
+  });
 
-  // if (!fontsLoaded) {
-  //   return null;
-  // }
+  const insets = useSafeAreaInsets();
 
   return (
-    <BottomNavigation
-      navigationState={{ index, routes }}
-      onIndexChange={setIndex}
-      renderScene={renderScene}
-      safeAreaInsets={{ bottom: insets.bottom }}
-      barStyle={{ backgroundColor: "transparent" }}
-      keyboardHidesNavigationBar
-      style={{ flex: 1 }}
-      activeColor="red"
-      sceneAnimationType="shifting"
-    />
+    <>
+      {props.isUser ? (
+        <BottomNavigation
+          navigationState={{ index, routes }}
+          onIndexChange={setIndex}
+          renderScene={renderSceneUser}
+          safeAreaInsets={{ bottom: insets.bottom }}
+          barStyle={{ backgroundColor: "transparent" }}
+          keyboardHidesNavigationBar
+          style={{ flex: 1 }}
+          activeColor="red"
+          sceneAnimationType="shifting"
+        />
+      ) : (
+        <BottomNavigation
+          navigationState={{ index, routes }}
+          onIndexChange={setIndex}
+          renderScene={renderSceneGuest}
+          safeAreaInsets={{ bottom: insets.bottom }}
+          barStyle={{ backgroundColor: "transparent" }}
+          keyboardHidesNavigationBar
+          style={{ flex: 1 }}
+          activeColor="red"
+          sceneAnimationType="shifting"
+        />
+      )}
+    </>
   );
 };
 

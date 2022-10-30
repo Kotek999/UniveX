@@ -43,11 +43,11 @@ const SafeArea = (props: SafeProps) => {
       </View>
       {props.titleOn && (
         <>
-          {props.screenTitle ? (
+          {/* {props.screenTitle ? (
             <Text>{props.screenTitle}</Text>
           ) : (
             <Text>{!props.guest && <Text>Witaj! USER</Text>}</Text>
-          )}
+          )} */}
         </>
       )}
       {props.children}
