@@ -1,32 +1,28 @@
 import React, { FC, useState } from "react";
 import { Text, ImageBackground, View } from "react-native";
 import SafeArea from "../../common/SafeArea";
-import {
-  Card,
-  Title,
-  Paragraph,
-  Button,
-  Snackbar,
-  TextInput,
-  Checkbox,
-} from "react-native-paper";
+import { Card, Title, Button, TextInput } from "react-native-paper";
+import { NavigationPropsList } from "../../../rootRouter";
+import { useNavigation } from "@react-navigation/native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
 const backgroundImage = require("../../images/backgroundTheme.jpg");
 
-const SingIn: FC = ({ navigation }: any) => {
+const SignIn: FC = () => {
   const [text, setText] = useState("");
   const [visible, setVisible] = useState(false);
 
   const onToggleSnackBar = () => setVisible(!visible);
 
   const isGuest = () => {
-    visible
-      ? navigation.navigate("Home")
-      : alert("Logujesz się jako Gość") + navigation.navigate("HomeGuest");
+    !visible ? navigation.navigate("Home") : navigation.navigate("HomeGuest");
   };
 
+  const navigation =
+    useNavigation<NativeStackNavigationProp<NavigationPropsList>>();
+
   return (
-    <SafeArea screenTitle="SignIn">
+    <SafeArea titleOn={false} isSignIn={true}>
       <ImageBackground
         source={backgroundImage}
         resizeMode="cover"
@@ -60,7 +56,7 @@ const SingIn: FC = ({ navigation }: any) => {
           >
             <Card.Content>
               <Title>Logowanie</Title>
-              <Text>Twój status: {!visible ? "Gość" : "Unknown"}</Text>
+              <Text>Twój status: {!visible ? "Offline" : "Gość"}</Text>
               <TextInput
                 mode="outlined"
                 label="Nazwa"
@@ -86,11 +82,11 @@ const SingIn: FC = ({ navigation }: any) => {
                 style={{ width: "90%", backgroundColor: "gray" }}
               >
                 <Text style={{ color: "white" }}>
-                  {visible ? "Zaloguj Się" : "Zaloguj się jako Gość"}
+                  {!visible ? "Zaloguj Się" : "Zaloguj się jako Gość"}
                 </Text>
               </Button>
               <View style={{ padding: 10 }}>
-                <Text>Nie masz konta? Zaloguj się jako gość</Text>
+                <Text>Nie masz konta? Zaloguj się jako Gość</Text>
               </View>
               {/* <Button onPress={onToggleSnackBar} icon={visible ? "check" : "close"}></Button> */}
               <Button mode="outlined" onPress={onToggleSnackBar}>
@@ -104,4 +100,4 @@ const SingIn: FC = ({ navigation }: any) => {
   );
 };
 
-export default SingIn;
+export default SignIn;

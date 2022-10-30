@@ -3,9 +3,17 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Home from "./src/components/Home";
 import { HomeGuest } from "./src/components/Home";
-import SingIn from "./src/components/SignIn";
+import SignIn from "./src/components/SignIn";
 
-const Stack = createNativeStackNavigator();
+export type NavigationPropsList = {
+  SignIn: undefined;
+
+  Home: undefined;
+
+  HomeGuest: undefined;
+};
+
+const Stack = createNativeStackNavigator<NavigationPropsList>();
 
 function Root() {
   return (
@@ -13,7 +21,7 @@ function Root() {
       <Stack.Navigator initialRouteName="SignIn">
         <Stack.Screen
           name="SignIn"
-          component={SingIn}
+          component={SignIn}
           options={{ headerShown: false }}
         />
         <Stack.Screen
@@ -21,7 +29,7 @@ function Root() {
           component={Home}
           options={{ headerShown: false }}
         />
-         <Stack.Screen
+        <Stack.Screen
           name="HomeGuest"
           component={HomeGuest}
           options={{ headerShown: false }}

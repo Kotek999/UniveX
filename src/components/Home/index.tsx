@@ -12,7 +12,11 @@ interface GuestProps {
 
 const Home: FC = (props: GuestProps) => {
   return (
-    <SafeArea screenTitle={props.guest && <Text>USER</Text>}>
+    <SafeArea
+      screenTitle={props.guest && <Text>USER</Text>}
+      titleOn={true}
+      isSignIn={false}
+    >
       <FooterMenu />
     </SafeArea>
   );
@@ -21,9 +25,9 @@ const Home: FC = (props: GuestProps) => {
 export const HomeGuest: FC = (props: GuestProps) => {
   return (
     <SafeArea
-      screenTitle={
-        props.guest ? <Text>USER</Text> : <Text>GUEST {uuidv4()}</Text>
-      }
+      screenTitle={!props.guest && <Text>Witaj! GOŚĆ{uuidv4()}</Text>}
+      titleOn={true}
+      isSignIn={false}
     >
       <FooterMenu />
     </SafeArea>

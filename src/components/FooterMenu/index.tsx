@@ -1,14 +1,17 @@
 import * as React from "react";
-import { ImageBackground, View, Image } from "react-native";
+import { ImageBackground, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { BottomNavigation, Text } from "react-native-paper";
-import { TouchableRipple } from "react-native-paper";
+import { useFonts } from "expo-font";
+
 
 const backgroundImage = require("../../images/backgroundTheme.jpg");
 const moon = require("../../images/planets/moon.gif");
 
 const HomeRoute = () => (
+  
   <View>
+    {/* <Text style={{ fontFamily: 'Inter-SemiBoldItalic', fontSize: 30 }}>Content 1</Text> */}
     <Text>Content 1</Text>
   </View>
 );
@@ -63,7 +66,7 @@ interface NavIcons {
 const NAV_ICONS: NavIcons[] = [
   {
     key: "iconFirst",
-    title: "Icon 1",
+    title: "Home",
     focusedIcon: "heart",
     unfocusedIcon: "heart-outline",
   },
@@ -75,7 +78,7 @@ const NAV_ICONS: NavIcons[] = [
   },
   {
     key: "iconThird",
-    title: "Icon 3",
+    title: "Profile",
     focusedIcon: "bell",
     unfocusedIcon: "bell-outline",
   },
@@ -91,7 +94,15 @@ const FooterMenu = () => {
     iconThird: NotificationsRoute,
   });
 
-  const insets = useSafeAreaInsets();
+  const insets = useSafeAreaInsets()
+  
+  // const [fontsLoaded] = useFonts({
+  //   'Inter-SemiBoldItalic': 'https://rsms.me/inter/font-files/Inter-SemiBoldItalic.otf?v=3.12',
+  // });
+
+  // if (!fontsLoaded) {
+  //   return null;
+  // }
 
   return (
     <BottomNavigation
