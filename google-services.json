@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "354006398146",
+    "firebase_url": "https://univex-e8fd1-default-rtdb.firebaseio.com",
+    "project_id": "univex-e8fd1",
+    "storage_bucket": "univex-e8fd1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:354006398146:android:c7ae3a6be41792e983b75b",
+        "android_client_info": {
+          "package_name": "com.google.univex"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "354006398146-7ai0790o911dql3pc673u0k5sfer7c43.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCW1MMtnMz9EAYEqSOiQsIZUp0oEu7nm_c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "354006398146-7ai0790o911dql3pc673u0k5sfer7c43.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
