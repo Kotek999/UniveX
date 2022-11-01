@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react";
+import React, { FC, useContext, useRef, useState } from "react";
 import { Text, ImageBackground, View } from "react-native";
 import SafeArea from "../../common/SafeArea";
 import { Card, Title, Button, TextInput } from "react-native-paper";
@@ -59,7 +59,7 @@ const SignIn: FC = () => {
               <Text style={{fontFamily: "Roboto"}}>Twój status: {!visible ? "Offline" : "Gość"}</Text>
               <TextInput
                 mode="outlined"
-                label="Nazwa"
+                label="E-mail"
                 value={text}
                 style={{ marginTop: 24 }}
                 onChangeText={(text) => setText(text)}
