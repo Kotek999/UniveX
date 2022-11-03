@@ -34,6 +34,11 @@
     },
     "plugins": [
       "@react-native-firebase/app"
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "783f66ab-92c4-4475-8671-283fb5a45189"
+      }
+    }
   }
 }
