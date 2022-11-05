@@ -1,10 +1,16 @@
 import * as React from "react";
 import { ImageBackground, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { BottomNavigation, Text, Card } from "react-native-paper";
+import { BottomNavigation, Text, Card, Button } from "react-native-paper";
 // @ts-ignore
 import { v4 as uuidv4 } from "uuid";
+import { signOut } from "firebase/auth";
+import { auth } from "../../../firebase";
+import { useNavigation } from "@react-navigation/native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { NavigationPropsList } from "../../../rootRouter";
 const backgroundImage = require("../../images/backgroundTheme.jpg");
+
 const moon = require("../../images/planets/moon.gif");
 
 const HomeRouteGuest = (props: any) => {
@@ -20,14 +26,28 @@ const HomeRouteGuest = (props: any) => {
 };
 
 const HomeRouteUser = (props: any) => {
+  const navigation =
+    useNavigation<NativeStackNavigationProp<NavigationPropsList>>();
+
   const screenTitle = !props.guest && <Text>Witaj! USER</Text>;
 
+  const LogOut = () => {
+    signOut(auth)
+      .then(() => {
+        navigation.navigate("SignIn");
+      })
+      .catch((error) => {});
+  };
+
   return (
-    <Card.Title
-      title={screenTitle}
-      subtitle="Content 1"
-      titleStyle={{ color: "red" }}
-    />
+    <>
+      <Card.Title
+        title={screenTitle}
+        subtitle="Content 1"
+        titleStyle={{ color: "red" }}
+      />
+      <Button onPress={() => LogOut()}>Wyloguj się</Button>
+    </>
   );
 };
 // const MusicRoute = () => <ImageBackground source={backgroundImage} resizeMode="cover" style={{flex: 1, justifyContent: "center"}}><Text>Content 1</Text></ImageBackground>;

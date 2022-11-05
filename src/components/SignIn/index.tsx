@@ -1,13 +1,12 @@
-import React, { FC, useContext, useRef, useState } from "react";
+import React, { FC, useState } from "react";
 import { Text, ImageBackground, View } from "react-native";
 import SafeArea from "../../common/SafeArea";
 import { Card, Title, Button, TextInput } from "react-native-paper";
 import { NavigationPropsList } from "../../../rootRouter";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-// import { auth } from "../../../firebase";
-import { firebase } from "../../../firebase";
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../../../firebase";
 
 const backgroundImage = require("../../images/backgroundTheme.jpg");
 
@@ -15,16 +14,6 @@ const SignIn: FC = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [visible, setVisible] = useState(false);
-
-  // const handleSignUp = () => {
-  //   auth
-  //     .createUserWithEmailAndPassword(email, password)
-  //     .then((userCredentials: any) => {
-  //       const user = userCredentials.user;
-  //       console.log(user.email)
-  //     })
-  //     .catch((error: any) => alert(error.message))
-  // }
 
   const onToggleSnackBar = () => setVisible(!visible);
 
@@ -35,25 +24,21 @@ const SignIn: FC = () => {
   const navigation =
     useNavigation<NativeStackNavigationProp<NavigationPropsList>>();
 
-  //  const loginUser = async ({email}: any, {password}: any) => {
-  //     try {
-  //       await firebase.auth().signInWithEmailAndPassword(auth, email, password)
-  //     } catch (error: any) {
-  //       alert(error.message)
-  //     }
-  //   }
-
-  const auth = getAuth();
-  signInWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
-      // Signed in
-      const user = userCredential.user;
-      // ...
-    })
-    .catch((error) => {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-    });
+  const login = () => {
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        // Signed in
+        // const user = userCredential.user;
+        alert("Logowanie zakończone powodzeniem");
+        navigation.replace("Home");
+        // ...
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        alert(errorMessage);
+      });
+  };
 
   return (
     <SafeArea titleOn={false} isSignIn={true}>
@@ -126,14 +111,12 @@ const SignIn: FC = () => {
               </Button>
               <Button
                 mode="outlined"
-                onPress={() =>
-                  signInWithEmailAndPassword(auth, email, password)
-                }
+                onPress={() => login()}
                 style={{ width: "90%", backgroundColor: "red" }}
               >
                 <Text style={{ color: "white" }}>
                   {/* {!visible ? "Zaloguj Się" : "Zaloguj się jako Gość"} */}
-                  Zarejestruj się - firebase test
+                 Zaloguj się - firebase test
                 </Text>
               </Button>
               <View style={{ padding: 10 }}>
