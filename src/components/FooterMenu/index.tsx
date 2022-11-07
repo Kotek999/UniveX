@@ -34,7 +34,8 @@ const HomeRouteUser = (props: any) => {
   const LogOut = () => {
     signOut(auth)
       .then(() => {
-        navigation.navigate("SignIn");
+        alert("Wylogowanie zakończone sukcesem")
+        navigation.replace("SignIn");
       })
       .catch((error) => {});
   };

@@ -7,6 +7,7 @@ import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../../firebase";
+import { User } from "firebase/auth";
 
 const backgroundImage = require("../../images/backgroundTheme.jpg");
 
@@ -14,31 +15,45 @@ const SignIn: FC = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [visible, setVisible] = useState(false);
+  const [user, setUser] = useState<User>();
 
   const onToggleSnackBar = () => setVisible(!visible);
-
-  const isGuest = () => {
-    !visible ? navigation.navigate("Home") : navigation.navigate("HomeGuest");
-  };
 
   const navigation =
     useNavigation<NativeStackNavigationProp<NavigationPropsList>>();
 
   const login = () => {
-    signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        // Signed in
-        // const user = userCredential.user;
-        alert("Logowanie zakończone powodzeniem");
-        navigation.replace("Home");
-        // ...
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        alert(errorMessage);
-      });
+    !visible
+      ? signInWithEmailAndPassword(auth, email, password)
+          .then((userCredential) => {
+           const user = userCredential.user;
+           setUser(user);
+            alert("Logowanie zakończone powodzeniem");
+            navigation.replace("Home");
+            console.log("User: ", user?.email);
+            // console.log("User: ", user.email);
+          })
+          .catch((error) => {
+            const errorCode = error.code;
+            // const errorMessage = error.message;
+
+            if (error.code === "auth/invalid-email") {
+              alert("Niepoprawny adres email!");
+              console.log(errorCode);
+            }
+            if (error.code === "auth/email-already-in-use") {
+              alert("Adres email jest już w użyciu!");
+              console.log(errorCode);
+            }
+            if (error.code === "auth/internal-error") {
+              alert("Niepoprawne hasło!");
+              console.log(errorCode);
+            }
+          })
+      : navigation.replace("HomeGuest");
   };
+
+  console.log("User: ", user?.email);
 
   return (
     <SafeArea titleOn={false} isSignIn={true}>
@@ -76,7 +91,12 @@ const SignIn: FC = () => {
             <Card.Content>
               <Title>Logowanie</Title>
               <Text style={{ fontFamily: "Roboto" }}>
-                Twój status: {!visible ? "Offline" : "Gość"}
+                Twój status:{" "}
+                {!visible ? (
+                  <Text style={{ color: "red" }}>Offline</Text>
+                ) : (
+                  <Text style={{ color: "green" }}>Gość</Text>
+                )}
               </Text>
               <TextInput
                 mode="outlined"
@@ -84,6 +104,7 @@ const SignIn: FC = () => {
                 value={email}
                 style={{ marginTop: 24 }}
                 onChangeText={(text) => setEmail(text)}
+                right={<TextInput.Icon icon="email" />}
               />
               <TextInput
                 mode="outlined"
@@ -92,37 +113,26 @@ const SignIn: FC = () => {
                 value={password}
                 secureTextEntry
                 onChangeText={(text) => setPassword(text)}
-                right={<TextInput.Icon icon="eye" />}
+                right={<TextInput.Icon icon="security" />}
               />
-              {/* <Paragraph>Card content</Paragraph> */}
             </Card.Content>
             <View
               style={{ marginTop: 24, marginBottom: 20, alignItems: "center" }}
             >
               <Button
                 mode="outlined"
-                onPress={() => isGuest()}
+                onPress={() => login()}
                 style={{ width: "90%", backgroundColor: "gray" }}
               >
                 <Text style={{ color: "white" }}>
-                  {/* {!visible ? "Zaloguj Się" : "Zaloguj się jako Gość"} */}
-                  Zarejestruj się
+                  {!visible ? "Zaloguj Się" : "Zaloguj się jako Gość"}
                 </Text>
               </Button>
-              <Button
-                mode="outlined"
-                onPress={() => login()}
-                style={{ width: "90%", backgroundColor: "red" }}
-              >
-                <Text style={{ color: "white" }}>
-                  {/* {!visible ? "Zaloguj Się" : "Zaloguj się jako Gość"} */}
-                 Zaloguj się - firebase test
+              <View style={{ margin: 20, width: "100%" }}>
+                <Text style={{ textAlign: "center" }}>
+                  Nie masz konta? Zaloguj się jako Gość
                 </Text>
-              </Button>
-              <View style={{ padding: 10 }}>
-                <Text>Nie masz konta? Zaloguj się jako Gość</Text>
               </View>
-              {/* <Button onPress={onToggleSnackBar} icon={visible ? "check" : "close"}></Button> */}
               <Button mode="outlined" onPress={onToggleSnackBar}>
                 Zweryfikuj
               </Button>
