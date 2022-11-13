@@ -136,6 +136,9 @@ const SignIn: FC = () => {
               <Button mode="outlined" onPress={onToggleSnackBar}>
                 Zweryfikuj
               </Button>
+              <Button onPress={() => navigation.navigate("LogIn")}>
+                klik 
+              </Button>
             </View>
           </Card>
         </View>

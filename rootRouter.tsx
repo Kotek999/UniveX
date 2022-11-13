@@ -4,6 +4,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Home from "./src/components/Home";
 import { HomeGuest } from "./src/components/Home";
 import SignIn from "./src/components/SignIn";
+import LogIn from "./src/components/pages/LogIn";
 
 
 export type NavigationPropsList = {
@@ -12,6 +13,8 @@ export type NavigationPropsList = {
   Home: undefined;
 
   HomeGuest: undefined;
+
+  LogIn: undefined;
 };
 
 const Stack = createNativeStackNavigator<NavigationPropsList>();
@@ -33,6 +36,11 @@ function Root(): any {
           <Stack.Screen
             name="HomeGuest"
             component={HomeGuest}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="LogIn"
+            component={LogIn}
             options={{ headerShown: false }}
           />
         </Stack.Navigator>
